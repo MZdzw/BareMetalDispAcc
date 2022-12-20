@@ -106,17 +106,17 @@ void pUART::uartSendChar(char sign)
 	uart->DR = sign;
 }
 
-void USART1_IRQHandler()
-{
-	if(USART1->SR & USART_SR_RXNE)
-	{
-		//clear RXNE bit in SR register if you dont read from DR register, otherwise you can but it is not obligatory
-		char sign;
-		sign = USART1->DR;
-		if(sign == 'D')
-			GPIOC->ODR ^= GPIO_ODR_ODR13;
-	}
-}
+//void USART1_IRQHandler()
+//{
+//	if(USART1->SR & USART_SR_RXNE)
+//	{
+//		//clear RXNE bit in SR register if you dont read from DR register, otherwise you can but it is not obligatory
+//		char sign;
+//		sign = USART1->DR;
+//		if(sign == 'D')
+//			GPIOC->ODR ^= GPIO_ODR_ODR13;
+//	}
+//}
 
 
 

@@ -11,15 +11,15 @@
 #include "stm32f103xb.h"
 #include "ioBaseCl.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void USART1_IRQHandler();
-
-#ifdef __cplusplus
-}
-#endif
+//#ifdef __cplusplus
+//extern "C" {
+//#endif
+//
+//void USART1_IRQHandler();
+//
+//#ifdef __cplusplus
+//}
+//#endif
 
 class pUART : public pIO
 {

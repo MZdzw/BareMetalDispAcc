@@ -95,6 +95,30 @@ LoopFillZerobss:
 /* Call static constructors */
   bl __libc_init_array
 /* Call the application's entry point.*/
+
+/* dodane przeze mnie
+    ldr r0, =_BeginRam1Bss
+    ldr r1, =_EndRam1Bss
+    ldr r2, =0
+
+    b 2f
+1:  str r2, [r0], #4
+2:  cmp r0, r1
+    blo 1b
+
+    /* ...*data
+    ldr r0, =_BeginRam1Data
+    ldr r1, =_EndRam1Data
+    ldr r2, =_InitRam1Data
+
+    b 2f
+1:  ldr r3, [r2], #4
+    str r3, [r0], #4
+2:  cmp r0, r1
+    blo 1b
+
+     koniec */
+
   bl main
 
 LoopForever:

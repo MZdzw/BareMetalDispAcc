@@ -154,6 +154,31 @@ SECTIONS
     __bss_end__ = _ebss;
   } >RAM
 
+	/* dodane przeze mnie 
+
+   .ram1blockData (NOLOAD) :
+  {
+    . = ALIGN(4);
+    _BeginRam1Data = .;
+    KEEP(*(.ram1sectionData))
+    . = ALIGN(4);
+    _EndRam1Data = .;
+
+  } >RAM AT> FLASH
+  _InitRam1Data = LOADADDR (.ram1blockData);
+
+   .ram1blockBss (NOLOAD) :
+  {
+    . = ALIGN(4);
+    _BeginRam1Bss = .;
+    KEEP(*(.ram1sectionBss))
+    . = ALIGN(4);
+    _EndRam1Bss = .;
+
+  } > RAM
+
+	 Koniec */
+
   /* User_heap_stack section, used to check that there is enough "RAM" Ram  type memory left */
   ._user_heap_stack :
   {

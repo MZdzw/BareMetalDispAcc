@@ -27,6 +27,10 @@
 /*#if !defined(__SOFT_FP__) && defined(__ARM_FP)
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif*/
+//uint8_t __attribute__(( section(".ram1sectionBss") )) ads_buf[5];
+//uint8_t __attribute__(( section(".ram1sectionData") )) ads_buf_data[4] = { 1, 2, 3, 4 };
+
+typedef void (*FUNC)();
 
 int main(void)
 {
@@ -42,6 +46,8 @@ int main(void)
 	LIS3DH lis3dh(0x18);
 	//i2c2.i2c_write_dev(0x3C, 0x01, 0xA0);
 
+	tabe[0] = USART1_IRQHandler;
+
 	for(;;)
 	{
 		if(tim2.getCounter() > 500)		//each 5 ms
@@ -50,6 +56,7 @@ int main(void)
 
 			lis3dh.read_Acc();
 			uart1.uartSendChar(lis3dh.get_Z_Acc());
+
 
 			tim2.resetCounter();
 		}

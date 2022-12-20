@@ -198,6 +198,53 @@ public:
 	uint8_t get_X_Acc() const;
 	uint8_t get_Y_Acc() const;
 	uint8_t get_Z_Acc() const;
+
+private:
+	//list of LIS3DH registers in proper order
+	volatile uint8_t STATUS_REG_AUX;
+	volatile uint8_t OUT_ADC1_L;
+	volatile uint8_t OUT_ADC1_H;
+	volatile uint8_t OUT_ADC2_L;
+	volatile uint8_t OUT_ADC2_H;
+	volatile uint8_t OUT_ADC3_L;
+	volatile uint8_t OUT_ADC3_H;
+	volatile uint8_t RESERVED1;
+	volatile uint8_t WHO_AM_I;
+	volatile uint8_t RESERVED[14];
+	volatile uint8_t CTRL_REG0;
+	volatile uint8_t TEMP_CFG_REG;
+	volatile uint8_t CTRL_REG1;
+	volatile uint8_t CTRL_REG2;
+	volatile uint8_t CTRL_REG3;
+	volatile uint8_t CTRL_REG4;
+	volatile uint8_t CTRL_REG5;
+	volatile uint8_t CTRL_REG6;
+	volatile uint8_t REFERENCE;
+	volatile uint8_t STATUS_REG;
+	volatile uint8_t OUT_X_L;
+	volatile uint8_t OUT_X_H;
+	volatile uint8_t OUT_Y_L;
+	volatile uint8_t OUT_Y_H;
+	volatile uint8_t OUT_Z_L;
+	volatile uint8_t OUT_Z_H;
+	volatile uint8_t FIFO_CTRL_REG;
+	volatile uint8_t FIFO_SRC_REG;
+	volatile uint8_t INT1_CFG;
+	volatile uint8_t INT1_SRC;
+	volatile uint8_t INT1_THS;
+	volatile uint8_t INT1_DURATION;
+	volatile uint8_t INT2_CFG;
+	volatile uint8_t INT2_SRC;
+	volatile uint8_t INT2_THS;
+	volatile uint8_t INT2_DURATION;
+	volatile uint8_t CLICK_CFG;
+	volatile uint8_t CLICK_SRC;
+	volatile uint8_t CLICK_THS;
+	volatile uint8_t TIME_LIMIT;
+	volatile uint8_t TIME_LATENCY;
+	volatile uint8_t TIME_WINDOW;
+	volatile uint8_t ACT_THS;
+	volatile uint8_t ACT_DUR;
 };
 
 

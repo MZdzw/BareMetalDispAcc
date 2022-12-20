@@ -85,7 +85,7 @@ uint16_t LIS3DH::readregister16(uint8_t addr)
 void LIS3DH::read_Acc()
 {
 	uint8_t res[6];
-	readData(REG_OUT_X_L,res,sizeof(res));
+	readData((&OUT_X_L - &STATUS_REG_AUX + 7), res, sizeof(res));
 
 	m_x = res[1];
 	m_y = res[3];

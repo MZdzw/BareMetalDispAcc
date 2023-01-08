@@ -29,7 +29,6 @@
 //uint8_t __attribute__(( section(".ram1sectionBss") )) ads_buf[5];
 //uint8_t __attribute__(( section(".ram1sectionData") )) ads_buf_data[4] = { 1, 2, 3, 4 };
 
-
 int main(void)
 {
     /* Loop forever */
@@ -39,18 +38,26 @@ int main(void)
 	pTIM tim2(TIM2, 0, 0xFFFF-1, 32000-1);
 
 	pGPIO led(GPIOC, MODE::OUT_PUSH_PULL, SPEED::SP_2_MHZ, 13);
+
 	ST7735S st7735s;
 	st7735s.init();
+	//uint8_t temp = 1;
 	st7735s.fillScreen(ST7735_WHITE);
+
 	TIM2->CNT = 0;
 	for(;;)
 	{
-		if(tim2.getCounter() > 200)		//each 5 ms
+		if(tim2.getCounter() > 1000)		//each 5 ms
 		{
 			led.toggle();		//toggle 13 pin
+//			temp ^= 0x03;
+//			if(temp & 0x01)
+//				st7735s.fillScreen(ST7735_BLACK);
+//			else
+//				st7735s.fillScreen(ST7735_YELLOW);
 			st7735s.writeString(40, 20, "A", ST7735_BLACK, ST7735_WHITE);
-
 			tim2.resetCounter();
+
 		}
 	}
 }

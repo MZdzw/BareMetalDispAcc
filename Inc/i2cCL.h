@@ -90,4 +90,5 @@ private:
 	I2CIrq m_interruptType;
 	I2CState m_currentStateIrq;
 };
+
 #endif /* I2CCL_H_ */

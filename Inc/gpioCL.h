@@ -24,38 +24,39 @@ enum SPEED
 
 class pGPIO : public pIO
 {
-public:
-		// Constructors.
-		pGPIO() {};
-		pGPIO(GPIO_TypeDef* gpioCon, MODE mode, SPEED speed, uint8_t pin_nr);
-		void setupGPIO(GPIO_TypeDef*, MODE, SPEED, uint8_t);
-
-		// Common r/w methods from the core I/O class.
-		unsigned int read(void);
-
-		void toggle(uint32_t);
-		void write(uint32_t);
-		void reset(uint32_t);
-		// GPIO-specific methods.
-		// Register modification methods; platform-specific.
-
-protected:
-      // Reference GPIO register struct.
-      GPIO_TypeDef* gpio = nullptr;
 private:
-      inline void in_analog(uint8_t);
-      inline void in_floating(uint8_t);
-      inline void in_pull_up_down(uint8_t);
+	GPIO_TypeDef* m_gpio = nullptr;
+	MODE m_mode;
+	SPEED m_speed;
+	uint8_t m_pinNr;
+public:
+	// Constructors.
+	pGPIO() {};
+	pGPIO(GPIO_TypeDef* gpioCon, MODE mode, SPEED speed, uint8_t pin_nr);
+	void setupGPIO(GPIO_TypeDef*, MODE, SPEED, uint8_t);
 
-      inline void out_push_pull(uint8_t);
-      inline void out_open_drain(uint8_t);
-      inline void af_push_pull(uint8_t);
-      inline void af_open_drain(uint8_t);
+	// Common r/w methods from the core I/O class.
+	unsigned int read(void);
 
-      inline void in_mode(uint8_t);
-      inline void sp_10_mhz(uint8_t);
-      inline void sp_2_mhz(uint8_t);
-      inline void sp_50_mhz(uint8_t);
+	void toggle();
+	void write();
+	void reset();
+	// GPIO-specific methods.
+	// Register modification methods; platform-specific
+private:
+	inline void in_analog();
+	inline void in_floating();
+	inline void in_pull_up_down();
+
+	inline void out_push_pull();
+	inline void out_open_drain();
+	inline void af_push_pull();
+	inline void af_open_drain();
+
+	inline void in_mode();
+	inline void sp_10_mhz();
+	inline void sp_2_mhz();
+	inline void sp_50_mhz();
 };
 
 #endif /* GPIOCL_H_ */

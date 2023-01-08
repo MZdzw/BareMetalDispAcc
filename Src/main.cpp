@@ -21,8 +21,7 @@
 #include "rccCL.h"
 #include "gpioCL.h"
 #include "timCL.h"
-#include "usartCL.h"
-#include "LIS3DH.h"
+#include "st7735s.h"
 
 /*#if !defined(__SOFT_FP__) && defined(__ARM_FP)
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
@@ -40,21 +39,16 @@ int main(void)
 	pTIM tim2(TIM2, 0, 0xFFFF-1, 32000-1);
 
 	pGPIO led(GPIOC, MODE::OUT_PUSH_PULL, SPEED::SP_2_MHZ, 13);
-	pUART uart1(USART1, 115200);
-
-	LIS3DH lis3dh(0x18);
-	//i2c2.i2c_write_dev(0x3C, 0x01, 0xA0);
-
-
+	ST7735S st7735s;
+	st7735s.init();
+	st7735s.fillScreen(ST7735_WHITE);
+	TIM2->CNT = 0;
 	for(;;)
 	{
-		if(tim2.getCounter() > 500)		//each 5 ms
+		if(tim2.getCounter() > 200)		//each 5 ms
 		{
-			led.toggle(static_cast<uint32_t>(GPIO_ODR_ODR13));		//toggle 13 pin
-
-			lis3dh.readAllAcc();
-			uart1.sendChar(lis3dh.get_Z_Acc());
-
+			led.toggle();		//toggle 13 pin
+			st7735s.writeString(40, 20, "A", ST7735_BLACK, ST7735_WHITE);
 
 			tim2.resetCounter();
 		}

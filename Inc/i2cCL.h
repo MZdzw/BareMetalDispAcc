@@ -4,7 +4,6 @@
  *  Created on: Nov 16, 2022
  *      Author: Marcin
  */
-
 #ifndef I2CCL_H_
 #define I2CCL_H_
 
@@ -91,5 +90,4 @@ private:
 	I2CIrq m_interruptType;
 	I2CState m_currentStateIrq;
 };
-
 #endif /* I2CCL_H_ */

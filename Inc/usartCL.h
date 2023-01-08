@@ -9,17 +9,20 @@
 #define USARTCL_H_
 
 #include "stm32f103xb.h"
-#include "ioBaseCl.h"
+#include "ioBaseCL.h"
+#include "interruptCL.h"
 
-//#ifdef __cplusplus
-//extern "C" {
-//#endif
-//
-//void USART1_IRQHandler();
-//
-//#ifdef __cplusplus
-//}
-//#endif
+static InterruptHandler g_usart1_handler;
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+void USART1_IRQHandler();
+
+#ifdef __cplusplus
+}
+#endif
 
 class pUART : public pIO
 {
@@ -29,10 +32,11 @@ public:
 
 	void clock_en(void) override;
 
-	void uartSendChar(char sign);
+	void send16BitNumber(uint16_t);
+	void sendChar(char sign);
 
 private:
-
+	void isr();
 
 	USART_TypeDef* uart;
 	uint32_t enable_uart_bit = 0;

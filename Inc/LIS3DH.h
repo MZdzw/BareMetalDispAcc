@@ -11,47 +11,6 @@
 #include "i2cCL.h"
 #include <math.h>
 
-
-static const uint8_t WHO_AM_I = 0b00110011;
-static const uint8_t SAD0 = 0x18;	//Low
-
-static const uint8_t REG_STATUS_AUX = 0x07;
-static const uint8_t REG_OUT_ADC1_L = 0x08;
-static const uint8_t REG_OUT_ADC1_H = 0x09;
-static const uint8_t REG_OUT_ADC2_L = 0x0a;
-static const uint8_t REG_OUT_ADC2_H = 0x0b;
-static const uint8_t REG_OUT_ADC3_L = 0x0c;
-static const uint8_t REG_OUT_ADC3_H = 0x0d;
-static const uint8_t REG_INT_COUNTER_REG = 0x0e;
-static const uint8_t REG_WHO_AM_I = 0x0f;
-static const uint8_t REG_TEMP_CFG_REG = 0x1f;
-static const uint8_t REG_CTRL_REG1 = 0x20;
-static const uint8_t REG_CTRL_REG2 = 0x21;
-static const uint8_t REG_CTRL_REG3 = 0x22;
-static const uint8_t REG_CTRL_REG4 = 0x23;
-static const uint8_t REG_CTRL_REG5 = 0x24;
-static const uint8_t REG_CTRL_REG6 = 0x25;
-static const uint8_t REG_REFERENCE = 0x26;
-static const uint8_t REG_STATUS_REG = 0x27;
-static const uint8_t REG_OUT_X_L = 0x28;
-static const uint8_t REG_OUT_X_H = 0x29;
-static const uint8_t REG_OUT_Y_L = 0x2a;
-static const uint8_t REG_OUT_Y_H = 0x2b;
-static const uint8_t REG_OUT_Z_L = 0x2c;
-static const uint8_t REG_OUT_Z_H = 0x2d;
-static const uint8_t REG_FIFO_CTRL_REG = 0x2e;
-static const uint8_t REG_FIFO_SRC_REG = 0x2f;
-static const uint8_t REG_INT1_CFG = 0x30;
-static const uint8_t REG_INT1_SRC = 0x31;
-static const uint8_t REG_INT1_THS = 0x32;
-static const uint8_t REG_INT1_DURATION = 0x33;
-static const uint8_t REG_CLICK_CFG = 0x38;
-static const uint8_t REG_CLICK_SRC = 0x39;
-static const uint8_t REG_CLICK_THS = 0x3a;
-static const uint8_t REG_TIME_LIMIT = 0x3b;
-static const uint8_t REG_TIME_LATENCY = 0x3c;
-static const uint8_t REG_TIME_WINDOW = 0x3d;
-
 static const uint8_t STATUS_ZYXOR = 0x80;
 static const uint8_t STATUS_ZOR = 0x40;
 static const uint8_t STATUS_YOR = 0x20;
@@ -153,98 +112,78 @@ static const uint8_t FIFO_SRC_OVRN = 0x40;
 static const uint8_t FIFO_SRC_EMPTY = 0x20;
 static const uint8_t FIFO_SRC_FSS_MASK = 0x1f;
 
-
-struct LIS3DH_REG
-{
-	volatile uint8_t reg_address = 0;
-	volatile uint8_t reg_value;
-};
-
 class LIS3DH
 {
 private:
 	pI2C i2c_LIS3DH;
-	//acc values
-	uint8_t m_x;
-	uint8_t m_y;
-	uint8_t m_z;
+	uint8_t m_devAddress;
 
-	uint8_t m_address;
+	uint8_t* m_reg;
+	uint8_t m_numBytes;
+	I2CIrq m_i2cMode;
 
-	//Registers of LIS3DH sensor in address order (important!!!!!)
-	LIS3DH_REG m_CTRL_REG1;
-	LIS3DH_REG m_CTRL_REG2;
-	LIS3DH_REG m_CTRL_REG3;
-	LIS3DH_REG m_CTRL_REG4;
-	LIS3DH_REG m_CTRL_REG5;
-	LIS3DH_REG m_CTRL_REG6;
-
-
-
-	void writeData(uint8_t addr, const uint8_t *buf, size_t numBytes);
-	void writeregister8(uint8_t addr, uint8_t val);
-	void writeregister16(uint8_t addr, uint16_t val);
-
-	void readData(uint8_t addr, uint8_t *buf, size_t numBytes);
-	uint8_t readregister8(uint8_t addr);
-	uint16_t readregister16(uint8_t addr);
-	uint8_t setup();
-	uint8_t setup_registers_adddress();
+	void writeData();
+	void readData();
+	void setup();
 public:
 	LIS3DH(uint8_t);
-	uint8_t get_I2Caddress() const;
+	uint8_t getI2Caddress() const;
 
-	void read_Acc();
-	uint8_t get_X_Acc() const;
-	uint8_t get_Y_Acc() const;
-	uint8_t get_Z_Acc() const;
+	void readAllAcc();
+	void readXAcc();
+	void readYAcc();
+	void readZAcc();
+
+	uint16_t get_X_Acc() const;
+	uint16_t get_Y_Acc() const;
+	uint16_t get_Z_Acc() const;
 
 private:
 	//list of LIS3DH registers in proper order
-	volatile uint8_t STATUS_REG_AUX;
-	volatile uint8_t OUT_ADC1_L;
-	volatile uint8_t OUT_ADC1_H;
-	volatile uint8_t OUT_ADC2_L;
-	volatile uint8_t OUT_ADC2_H;
-	volatile uint8_t OUT_ADC3_L;
-	volatile uint8_t OUT_ADC3_H;
-	volatile uint8_t RESERVED1;
-	volatile uint8_t WHO_AM_I;
-	volatile uint8_t RESERVED[14];
-	volatile uint8_t CTRL_REG0;
-	volatile uint8_t TEMP_CFG_REG;
-	volatile uint8_t CTRL_REG1;
-	volatile uint8_t CTRL_REG2;
-	volatile uint8_t CTRL_REG3;
-	volatile uint8_t CTRL_REG4;
-	volatile uint8_t CTRL_REG5;
-	volatile uint8_t CTRL_REG6;
-	volatile uint8_t REFERENCE;
-	volatile uint8_t STATUS_REG;
-	volatile uint8_t OUT_X_L;
-	volatile uint8_t OUT_X_H;
-	volatile uint8_t OUT_Y_L;
-	volatile uint8_t OUT_Y_H;
-	volatile uint8_t OUT_Z_L;
-	volatile uint8_t OUT_Z_H;
-	volatile uint8_t FIFO_CTRL_REG;
-	volatile uint8_t FIFO_SRC_REG;
-	volatile uint8_t INT1_CFG;
-	volatile uint8_t INT1_SRC;
-	volatile uint8_t INT1_THS;
-	volatile uint8_t INT1_DURATION;
-	volatile uint8_t INT2_CFG;
-	volatile uint8_t INT2_SRC;
-	volatile uint8_t INT2_THS;
-	volatile uint8_t INT2_DURATION;
-	volatile uint8_t CLICK_CFG;
-	volatile uint8_t CLICK_SRC;
-	volatile uint8_t CLICK_THS;
-	volatile uint8_t TIME_LIMIT;
-	volatile uint8_t TIME_LATENCY;
-	volatile uint8_t TIME_WINDOW;
-	volatile uint8_t ACT_THS;
-	volatile uint8_t ACT_DUR;
+	uint8_t STATUS_REG_AUX;
+	uint8_t OUT_ADC1_L;
+	uint8_t OUT_ADC1_H;
+	uint8_t OUT_ADC2_L;
+	uint8_t OUT_ADC2_H;
+	uint8_t OUT_ADC3_L;
+	uint8_t OUT_ADC3_H;
+	uint8_t RESERVED1;
+	uint8_t WHO_AM_I;
+	uint8_t RESERVED[14];
+	uint8_t CTRL_REG0;
+	uint8_t TEMP_CFG_REG;
+	uint8_t CTRL_REG1;
+	uint8_t CTRL_REG2;
+	uint8_t CTRL_REG3;
+	uint8_t CTRL_REG4;
+	uint8_t CTRL_REG5;
+	uint8_t CTRL_REG6;
+	uint8_t REFERENCE;
+	uint8_t STATUS_REG;
+	uint8_t OUT_X_L;
+	uint8_t OUT_X_H;
+	uint8_t OUT_Y_L;
+	uint8_t OUT_Y_H;
+	uint8_t OUT_Z_L;
+	uint8_t OUT_Z_H;
+	uint8_t FIFO_CTRL_REG;
+	uint8_t FIFO_SRC_REG;
+	uint8_t INT1_CFG;
+	uint8_t INT1_SRC;
+	uint8_t INT1_THS;
+	uint8_t INT1_DURATION;
+	uint8_t INT2_CFG;
+	uint8_t INT2_SRC;
+	uint8_t INT2_THS;
+	uint8_t INT2_DURATION;
+	uint8_t CLICK_CFG;
+	uint8_t CLICK_SRC;
+	uint8_t CLICK_THS;
+	uint8_t TIME_LIMIT;
+	uint8_t TIME_LATENCY;
+	uint8_t TIME_WINDOW;
+	uint8_t ACT_THS;
+	uint8_t ACT_DUR;
 };
 
 

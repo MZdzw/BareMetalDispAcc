@@ -30,7 +30,6 @@
 //uint8_t __attribute__(( section(".ram1sectionBss") )) ads_buf[5];
 //uint8_t __attribute__(( section(".ram1sectionData") )) ads_buf_data[4] = { 1, 2, 3, 4 };
 
-typedef void (*FUNC)();
 
 int main(void)
 {
@@ -46,7 +45,6 @@ int main(void)
 	LIS3DH lis3dh(0x18);
 	//i2c2.i2c_write_dev(0x3C, 0x01, 0xA0);
 
-	tabe[0] = USART1_IRQHandler;
 
 	for(;;)
 	{
@@ -54,8 +52,8 @@ int main(void)
 		{
 			led.toggle(static_cast<uint32_t>(GPIO_ODR_ODR13));		//toggle 13 pin
 
-			lis3dh.read_Acc();
-			uart1.uartSendChar(lis3dh.get_Z_Acc());
+			lis3dh.readAllAcc();
+			uart1.sendChar(lis3dh.get_Z_Acc());
 
 
 			tim2.resetCounter();

@@ -8,7 +8,7 @@
 #ifndef TIMCL_H_
 #define TIMCL_H_
 
-#include "ioBaseCl.h"
+#include "ioBaseCL.h"
 #include "stm32f103xb.h"
 
 class pTIM : public pIO

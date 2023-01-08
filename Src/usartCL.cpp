@@ -90,6 +90,7 @@ pUART::pUART(USART_TypeDef* uart_arg, uint32_t baudrate)
 		NVIC_EnableIRQ(USART1_IRQn);
 
 	__enable_irq();
+	g_usart1_handler.connect<&pUART::isr>(this);
 }
 
 void pUART::clock_en(void)
@@ -100,23 +101,36 @@ void pUART::clock_en(void)
 	status = pSTATUS_ON;
 }
 
-void pUART::uartSendChar(char sign)
+void pUART::send16BitNumber(uint16_t num)
+{
+	char sign = num >> 8;
+	sendChar(sign);
+	sign = num & 0x00FF;
+	sendChar(sign);
+}
+
+void pUART::sendChar(char sign)
 {
 	while(!(uart->SR & USART_SR_TXE));
 	uart->DR = sign;
 }
 
-//void USART1_IRQHandler()
-//{
-//	if(USART1->SR & USART_SR_RXNE)
-//	{
-//		//clear RXNE bit in SR register if you dont read from DR register, otherwise you can but it is not obligatory
-//		char sign;
-//		sign = USART1->DR;
-//		if(sign == 'D')
-//			GPIOC->ODR ^= GPIO_ODR_ODR13;
-//	}
-//}
+void pUART::isr()
+{
+	if(uart->SR & USART_SR_RXNE)
+	{
+		//clear RXNE bit in SR register if you dont read from DR register, otherwise you can but it is not obligatory
+		char sign;
+		sign = uart->DR;
+		if(sign == 'D')
+			GPIOC->ODR ^= GPIO_ODR_ODR13;
+	}
+}
+
+void USART1_IRQHandler()
+{
+	g_usart1_handler();
+}
 
 
 

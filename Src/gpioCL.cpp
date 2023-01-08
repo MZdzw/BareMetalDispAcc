@@ -9,7 +9,12 @@
 pGPIO::pGPIO(GPIO_TypeDef* gpioCon, MODE mode, SPEED speed, uint8_t pin_nr)
 {
 	gpio = gpioCon;
-	if(gpio == GPIOC)
+	if(gpio == GPIOB)
+	{
+		enable_reg = &(RCC->APB2ENR);		//enabled GPIOC port
+		enable_bit = RCC_APB2ENR_IOPBEN;
+	}
+	else if(gpio == GPIOC)
 	{
 		enable_reg = &(RCC->APB2ENR);		//enabled GPIOC port
 		enable_bit = RCC_APB2ENR_IOPCEN;
@@ -238,5 +243,54 @@ inline void pGPIO::sp_50_mhz(uint8_t pin_nr)
 		gpio->CRL |= (1 << (pin_nr*4));
 		gpio->CRL |= (1 << (pin_nr*4 + 1));
 	}
+}
+
+void pGPIO::setupGPIO(GPIO_TypeDef* gpioCon, MODE mode, SPEED speed, uint8_t pin_nr)
+{
+	gpio = gpioCon;
+	enable_reg = &(RCC->APB2ENR);		//enabled GPIOC port
+	if(gpio == GPIOA)
+	{
+		enable_bit = RCC_APB2ENR_IOPAEN;
+	}
+	else if(gpio == GPIOB)
+	{
+		enable_bit = RCC_APB2ENR_IOPBEN;
+	}
+	else if(gpio == GPIOC)
+	{
+		enable_bit = RCC_APB2ENR_IOPCEN;
+	}
+	else if(gpio == GPIOD)
+	{
+		enable_bit = RCC_APB2ENR_IOPDEN;
+	}
+	//RCC->APB2ENR |= RCC_APB2ENR_IOPCEN;
+	status = pSTATUS_SET;
+	clock_en();
+
+	if(mode == MODE::OUT_PUSH_PULL)	//push-pull output
+		out_push_pull(pin_nr);	//push-pull
+	else if(mode == MODE::AF_PUSH_PULL)	//AF PUSH-PULL
+		af_push_pull(pin_nr);	//AF push-pull
+	else if(mode == MODE::AF_OPEN_DRAIN)	//AF OPEN-DRAIN
+		af_open_drain(pin_nr);	//AF open-drain
+	else if(mode == MODE::OUT_OPEN_DRAIN)
+		out_open_drain(pin_nr);
+	else if(mode == MODE::ANALOG_MODE)
+		in_analog(pin_nr);
+	else if(mode == MODE::FLOATING_INPUT)
+		in_floating(pin_nr);
+	else if(mode == MODE::IN_PULL_UP_DOWN)
+		in_pull_up_down(pin_nr);
+
+	if(speed == SPEED::SP_10_MHZ)
+		sp_10_mhz(pin_nr);
+	else if(speed == SPEED::SP_2_MHZ)
+		sp_2_mhz(pin_nr);
+	else if(speed == SPEED::SP_50_MHZ)
+		sp_50_mhz(pin_nr);
+	else if(speed == SPEED::IN_MODE)
+		in_mode(pin_nr);
 }
 

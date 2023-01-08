@@ -9,7 +9,7 @@
 #define GPIOCL_H_
 
 #include "stm32f103xb.h"
-#include "ioBaseCl.h"
+#include "ioBaseCL.h"
 
 enum MODE
 {
@@ -26,7 +26,9 @@ class pGPIO : public pIO
 {
 public:
 		// Constructors.
+		pGPIO() {};
 		pGPIO(GPIO_TypeDef* gpioCon, MODE mode, SPEED speed, uint8_t pin_nr);
+		void setupGPIO(GPIO_TypeDef*, MODE, SPEED, uint8_t);
 
 		// Common r/w methods from the core I/O class.
 		unsigned int read(void);

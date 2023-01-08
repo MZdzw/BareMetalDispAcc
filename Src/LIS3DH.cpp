@@ -5,109 +5,104 @@
  *      Author: Marcin
  */
 #include "LIS3DH.h"
-#include "i2cCL.h"
 
 LIS3DH::LIS3DH(uint8_t LIS3DH_i2cAdd)
-:m_address(LIS3DH_i2cAdd)
+:m_devAddress(LIS3DH_i2cAdd),
+ m_i2cMode(I2CIrq::RXIRQ)
 {
-	i2c_LIS3DH.setup_I2C(I2C2);
-	setup_registers_adddress();
+	i2c_LIS3DH.setupI2C(I2C2, m_i2cMode);
 	setup();
 }
 
-uint8_t LIS3DH::setup()
+void LIS3DH::setup()
 {
+	m_reg = &CTRL_REG1;
 	//set low power mode 1 Hz, XYZ detection
-	m_CTRL_REG1.reg_value = CTRL_REG1_ODR1 | CTRL_REG1_LPEN | CTRL_REG1_ZEN | CTRL_REG1_YEN | CTRL_REG1_XEN;
+	*m_reg = CTRL_REG1_ODR1 | CTRL_REG1_LPEN | CTRL_REG1_ZEN | CTRL_REG1_YEN | CTRL_REG1_XEN;
 	//high pass filter, leave it as it is (no filtering)
 	//reg2 =
 	//reg3 =
-	writeregister8(m_CTRL_REG1.reg_address, m_CTRL_REG1.reg_value);
+	m_numBytes = 1;
+	writeData();
 }
 
-void LIS3DH::writeData(uint8_t addr, const uint8_t *buf, size_t numBytes)
+void LIS3DH::writeData()
 {
-	if(numBytes > 1)
+	uint32_t regAddr = m_reg - &STATUS_REG_AUX + 7;
+	if(m_numBytes > 1)
 	{
-		addr |= 0x80;	//wysyl kilku bajtow pod rzad - MSB = 1
+		regAddr |= 0x80;	//wysyl kilku bajtow pod rzad - MSB = 1
 	}
-	i2c_LIS3DH.i2c_write_dev((get_I2Caddress()<<1), addr, *buf);
-	//HAL_I2C_Mem_Write(&hi2c1, (getI2Caddr()<<1), addr, 1, buf, numBytes, 100);
-	//HAL_I2C_Master_Transmit(hi2c, DevAddress, pData, Size, Timeout);
+	i2c_LIS3DH.i2c_write_dev((getI2Caddress()<<1), regAddr, *m_reg);
 }
 
-void LIS3DH::writeregister8(uint8_t addr, uint8_t val)
+uint8_t LIS3DH::getI2Caddress() const
 {
-	writeData(addr,&val,sizeof(val));
-}
-
-void LIS3DH::writeregister16(uint8_t addr, uint16_t val)
-{
-	uint8_t req[2];
-	req[0] = val & 0xff;
-	req[1] = val >> 8;
-
-	writeData(addr, req, sizeof(req));
-}
-
-uint8_t LIS3DH::get_I2Caddress() const
-{
-	return m_address;
+	return m_devAddress;
 }
 
 
-void LIS3DH::readData(uint8_t addr, uint8_t *buf, size_t numBytes)
+void LIS3DH::readData()
 {
-	if(numBytes > 1)
+	uint32_t regAddr = m_reg - &STATUS_REG_AUX + 7;
+	if(m_numBytes > 1)
 	{
-			addr |= 0x80;	//wysyl kilku bajtow pod rzad - MSB = 1
+		regAddr |= 0x80;	//wysyl kilku bajtow pod rzad - MSB = 1
 	}
-	//HAL_I2C_Mem_Read(&hi2c1, (getI2Caddr()<<1), addr, 1, buf, numBytes, 100);
-	i2c_LIS3DH.i2c_read_dev((get_I2Caddress()<<1), addr, buf, numBytes);
+	(m_i2cMode == I2CIrq::RXIRQ) ?  i2c_LIS3DH.i2cReadDevIT((getI2Caddress()<<1), regAddr,  m_numBytes) :
+	i2c_LIS3DH.i2cReadDev((getI2Caddress()<<1), regAddr,  m_numBytes);
 }
 
-uint8_t LIS3DH::readregister8(uint8_t addr)
+void LIS3DH::readAllAcc()
 {
-	uint8_t read_val[1];
-	readData(addr, read_val, sizeof(read_val));
+	m_reg = &OUT_X_L;
+	m_numBytes = 6;
 
-	return read_val[0];
+	readData();
+	auto *accBuffer = i2c_LIS3DH.getBufferAddr();
+	OUT_X_L = *(accBuffer + 0);
+	OUT_X_H = *(accBuffer + 1);
+	OUT_Y_L = *(accBuffer + 2);
+	OUT_Y_H = *(accBuffer + 3);
+	OUT_Z_L = *(accBuffer + 4);
+	OUT_Z_H = *(accBuffer + 5);
 }
 
-uint16_t LIS3DH::readregister16(uint8_t addr)
+void LIS3DH::readXAcc()
 {
-	uint8_t read_val[2];
-	readData(addr, read_val, sizeof(read_val));
+	m_reg = &OUT_X_L;
+	m_numBytes = 2;
 
-	return read_val[0] | (((uint16_t)read_val[1]) << 8);
+	readData();
 }
 
-void LIS3DH::read_Acc()
+void LIS3DH::readYAcc()
 {
-	uint8_t res[6];
-	readData((&OUT_X_L - &STATUS_REG_AUX + 7), res, sizeof(res));
+	m_reg = &OUT_Y_L;
+	m_numBytes = 2;
 
-	m_x = res[1];
-	m_y = res[3];
-	m_z = res[5];
+	readData();
 }
 
-uint8_t LIS3DH::setup_registers_adddress()
+void LIS3DH::readZAcc()
 {
-	m_CTRL_REG1.reg_address = 0x20;
+	m_reg = &OUT_Z_L;
+	m_numBytes = 2;
+
+	readData();
 }
 
-uint8_t LIS3DH::get_X_Acc() const
+uint16_t LIS3DH::get_X_Acc() const
 {
-	return m_x;
+	return (OUT_X_L << 8) | OUT_X_H;
 }
 
-uint8_t LIS3DH::get_Y_Acc() const
+uint16_t LIS3DH::get_Y_Acc() const
 {
-	return m_y;
+	return (OUT_Y_L << 8) | OUT_Y_H;
 }
 
-uint8_t LIS3DH::get_Z_Acc() const
+uint16_t LIS3DH::get_Z_Acc() const
 {
-	return m_z;
+	return (OUT_Z_L << 8) | OUT_Z_H;
 }

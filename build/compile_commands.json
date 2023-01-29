@@ -1,0 +1,72 @@
+[
+{
+  "directory": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/build",
+  "command": "/usr/bin/c++ -DSTM32 -DSTM32F1 -DSTM32F103C8Tx -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Drivers/CMSIS -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Inc -g -mcpu=cortex-m3 -mthumb -fdata-sections -ffunction-sections -Wall -Og -std=c++17 -o CMakeFiles/BareMetalDispAcc.out.dir/Src/gpioCL.cpp.o -c /home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/gpioCL.cpp",
+  "file": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/gpioCL.cpp"
+},
+{
+  "directory": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/build",
+  "command": "/usr/bin/c++ -DSTM32 -DSTM32F1 -DSTM32F103C8Tx -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Drivers/CMSIS -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Inc -g -mcpu=cortex-m3 -mthumb -fdata-sections -ffunction-sections -Wall -Og -std=c++17 -o CMakeFiles/BareMetalDispAcc.out.dir/Src/i2cCL.cpp.o -c /home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/i2cCL.cpp",
+  "file": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/i2cCL.cpp"
+},
+{
+  "directory": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/build",
+  "command": "/usr/bin/c++ -DSTM32 -DSTM32F1 -DSTM32F103C8Tx -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Drivers/CMSIS -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Inc -g -mcpu=cortex-m3 -mthumb -fdata-sections -ffunction-sections -Wall -Og -std=c++17 -o CMakeFiles/BareMetalDispAcc.out.dir/Src/ioBaseCL.cpp.o -c /home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/ioBaseCL.cpp",
+  "file": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/ioBaseCL.cpp"
+},
+{
+  "directory": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/build",
+  "command": "/usr/bin/c++ -DSTM32 -DSTM32F1 -DSTM32F103C8Tx -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Drivers/CMSIS -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Inc -g -mcpu=cortex-m3 -mthumb -fdata-sections -ffunction-sections -Wall -Og -std=c++17 -o CMakeFiles/BareMetalDispAcc.out.dir/Src/LIS3DH.cpp.o -c /home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/LIS3DH.cpp",
+  "file": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/LIS3DH.cpp"
+},
+{
+  "directory": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/build",
+  "command": "/usr/bin/c++ -DSTM32 -DSTM32F1 -DSTM32F103C8Tx -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Drivers/CMSIS -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Inc -g -mcpu=cortex-m3 -mthumb -fdata-sections -ffunction-sections -Wall -Og -std=c++17 -o CMakeFiles/BareMetalDispAcc.out.dir/Src/main.cpp.o -c /home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/main.cpp",
+  "file": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/main.cpp"
+},
+{
+  "directory": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/build",
+  "command": "/usr/bin/c++ -DSTM32 -DSTM32F1 -DSTM32F103C8Tx -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Drivers/CMSIS -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Inc -g -mcpu=cortex-m3 -mthumb -fdata-sections -ffunction-sections -Wall -Og -std=c++17 -o CMakeFiles/BareMetalDispAcc.out.dir/Src/rccCL.cpp.o -c /home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/rccCL.cpp",
+  "file": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/rccCL.cpp"
+},
+{
+  "directory": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/build",
+  "command": "/usr/bin/cc -DSTM32 -DSTM32F1 -DSTM32F103C8Tx -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Drivers/CMSIS -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Inc -g -mcpu=cortex-m3 -mthumb -fdata-sections -ffunction-sections -Wall -Og -std=c99 -o CMakeFiles/BareMetalDispAcc.out.dir/Src/syscalls.c.o -c /home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/syscalls.c",
+  "file": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/syscalls.c"
+},
+{
+  "directory": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/build",
+  "command": "/usr/bin/cc -DSTM32 -DSTM32F1 -DSTM32F103C8Tx -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Drivers/CMSIS -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Inc -g -mcpu=cortex-m3 -mthumb -fdata-sections -ffunction-sections -Wall -Og -std=c99 -o CMakeFiles/BareMetalDispAcc.out.dir/Src/sysmem.c.o -c /home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/sysmem.c",
+  "file": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/sysmem.c"
+},
+{
+  "directory": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/build",
+  "command": "/usr/bin/cc -DSTM32 -DSTM32F1 -DSTM32F103C8Tx -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Drivers/CMSIS -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Inc -g -mcpu=cortex-m3 -mthumb -fdata-sections -ffunction-sections -Wall -Og -std=c99 -o CMakeFiles/BareMetalDispAcc.out.dir/Src/fonts.c.o -c /home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/fonts.c",
+  "file": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/fonts.c"
+},
+{
+  "directory": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/build",
+  "command": "/usr/bin/c++ -DSTM32 -DSTM32F1 -DSTM32F103C8Tx -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Drivers/CMSIS -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Inc -g -mcpu=cortex-m3 -mthumb -fdata-sections -ffunction-sections -Wall -Og -std=c++17 -o CMakeFiles/BareMetalDispAcc.out.dir/Src/timCL.cpp.o -c /home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/timCL.cpp",
+  "file": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/timCL.cpp"
+},
+{
+  "directory": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/build",
+  "command": "/usr/bin/c++ -DSTM32 -DSTM32F1 -DSTM32F103C8Tx -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Drivers/CMSIS -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Inc -g -mcpu=cortex-m3 -mthumb -fdata-sections -ffunction-sections -Wall -Og -std=c++17 -o CMakeFiles/BareMetalDispAcc.out.dir/Src/usartCL.cpp.o -c /home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/usartCL.cpp",
+  "file": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/usartCL.cpp"
+},
+{
+  "directory": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/build",
+  "command": "/usr/bin/c++ -DSTM32 -DSTM32F1 -DSTM32F103C8Tx -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Drivers/CMSIS -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Inc -g -mcpu=cortex-m3 -mthumb -fdata-sections -ffunction-sections -Wall -Og -std=c++17 -o CMakeFiles/BareMetalDispAcc.out.dir/Src/st7735s.cpp.o -c /home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/st7735s.cpp",
+  "file": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/st7735s.cpp"
+},
+{
+  "directory": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/build",
+  "command": "/usr/bin/c++ -DSTM32 -DSTM32F1 -DSTM32F103C8Tx -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Drivers/CMSIS -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Inc -g -mcpu=cortex-m3 -mthumb -fdata-sections -ffunction-sections -Wall -Og -std=c++17 -o CMakeFiles/BareMetalDispAcc.out.dir/Src/spiCL.cpp.o -c /home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/spiCL.cpp",
+  "file": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Src/spiCL.cpp"
+},
+{
+  "directory": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/build",
+  "command": "/usr/bin/cc -DSTM32 -DSTM32F1 -DSTM32F103C8Tx -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Drivers/CMSIS -I/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Inc -g -mcpu=cortex-m3 -mthumb -fdata-sections -ffunction-sections -Wall -Og -o CMakeFiles/BareMetalDispAcc.out.dir/Startup/startup_stm32f103c8tx.s.o -c /home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Startup/startup_stm32f103c8tx.s",
+  "file": "/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/Startup/startup_stm32f103c8tx.s"
+}
+]

@@ -307,8 +307,8 @@ void ST7735S::printChar(uint8_t x, uint8_t y, unsigned char sign, uint16_t color
 
 	m_x = x;
 	m_y = y;
-	m_width = m_x + Font_11x18.width;
-	m_height = m_y + Font_11x18.height;
+	m_width = Font_11x18.width;
+	m_height = Font_11x18.height;
 	setAddressWindow();						//ustawia gdzie beda zmienione piksele
 
 	for(i = 0; i < Font_11x18.height; i++) {

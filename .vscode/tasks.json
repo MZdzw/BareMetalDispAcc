@@ -1,0 +1,21 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cmake",
+			"label": "CMake: build",
+			"command": "--version",
+			"targets": [
+				""
+			],
+			"group": "build",
+			"problemMatcher": [],
+			"detail": "CMake template build task"
+		},
+		{
+			"type": "shell",
+			"label": "Cmake build",
+			"command": "cmake -G \"Unix Makefiles\" -DCMAKE_TOOLCHAIN_FILE=../Toolchain-arm-gcc.cmake -DCMAKE_BUILD_TYPE=Debug -S /home/marzd/Documents/Projects/stm32/BareMetalDispAcc -B /home/marzd/Documents/Projects/stm32/BareMetalDispAcc/cmake-build-debug
+		}
+	]
+}

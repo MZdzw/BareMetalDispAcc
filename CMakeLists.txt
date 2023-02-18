@@ -30,7 +30,7 @@ set(STM32_GENERATED_FILES
 
         Startup/startup_stm32f103c8tx.s)
 
-set(EXECUTABLE ${PROJECT_NAME}.out)
+set(EXECUTABLE ${PROJECT_NAME}.elf)
 
 add_executable(${EXECUTABLE} ${STM32_GENERATED_FILES})
 

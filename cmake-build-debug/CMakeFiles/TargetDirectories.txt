@@ -1,3 +1,0 @@
-/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/cmake-build-debug/CMakeFiles/BareMetalDispAcc.out.dir
-/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/marzd/Documents/Projects/stm32/BareMetalDispAcc/cmake-build-debug/CMakeFiles/rebuild_cache.dir
